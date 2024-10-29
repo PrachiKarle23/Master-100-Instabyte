@@ -1,0 +1,21 @@
+class Solution {
+public:
+    ListNode* reverseList(ListNode* head) {
+         ListNode* temp=head;
+         vector<int>res;
+         while(temp!=NULL)
+         {
+             res.push_back(temp->val);
+             temp=temp->next;
+         }
+        
+         ListNode* ans=new ListNode(-1);
+         ListNode* temp1=ans;
+         for(int i=res.size()-1;i>=0;i--)
+         {
+            temp1->next=new ListNode(res[i]);
+            temp1=temp1->next;
+         }
+         return ans->next;
+    }
+};
