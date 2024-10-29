@@ -1,0 +1,50 @@
+class Solution {
+public:
+    void solve(TreeNode* root,vector<int>& ans)
+    {
+        if(root==NULL){
+            return;
+        }
+        solve(root->left,ans);
+        ans.push_back(root->val);
+        solve(root->right,ans);
+    }
+    bool isSorted(vector<int>& ans)
+    {
+        for(int i=1;i<ans.size();i++)
+        {
+            if(ans[i]<=ans[i-1]){
+                return false;
+            }
+           
+        }
+        return true;
+    }
+    bool isValidBST(TreeNode* root) {
+        vector<int>ans;
+        solve(root,ans);
+        return isSorted(ans);
+    }
+};
+
+//Recursion-77/85
+class Solution {
+public:
+    bool solve(TreeNode* root) {
+        if(!root){
+            return true;
+        }
+        if((root->left && root->val <= root->left->val) || 
+        (root->right && root->val >= root->right->val))
+        {
+            return false;
+        }
+        return solve(root->left) && solve(root->right);
+    }
+    bool isValidBST(TreeNode* root) {
+        if (root == NULL) {
+            return true;
+        }
+        return solve(root);
+    }
+};
