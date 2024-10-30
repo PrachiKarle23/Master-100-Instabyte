@@ -1,0 +1,43 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void createMapping(vector<int>& inorder,int n,map<int,int>& nodeToIndex)
+    {
+         for(int i=n-1;i>=0;i--)
+         {
+            nodeToIndex[inorder[i]]=i;
+         }
+    }
+    TreeNode* solve(vector<int>& preorder, vector<int>& inorder,int &preIndex,int i,int j,map<int,int>&
+    nodeToIndex,int n)
+    {
+        if(preIndex>=n || i>j){
+            return NULL;
+        }
+        int val=preorder[preIndex++];
+        TreeNode* root=new TreeNode(val);
+        int pos=nodeToIndex[val];
+
+        root->left=solve(preorder,inorder,preIndex,i,pos-1,nodeToIndex,n);
+        root->right=solve(preorder,inorder,preIndex,pos+1,j,nodeToIndex,n);
+        return root;
+    }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+        int n=inorder.size();
+        map<int,int>nodeToIndex;
+        createMapping(inorder,n,nodeToIndex);
+        int preIndex=0;
+        TreeNode* root=solve(preorder,inorder,preIndex,0,n-1,nodeToIndex,n);
+        return root;
+    }
+};
