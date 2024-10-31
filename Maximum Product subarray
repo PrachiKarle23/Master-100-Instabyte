@@ -1,0 +1,25 @@
+//TLE
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int j=0,i=0, n=nums.size();
+        int prod=1;
+        int maxi=INT_MIN;
+        while(j<n)
+        {
+           prod*=nums[j];
+           if(prod>maxi){
+            maxi=prod;
+           }
+           j++;
+           if(j==n){
+            i++;
+            j=i;
+            prod=1;
+           }
+        }
+        return maxi;
+    }
+};
+
+//
