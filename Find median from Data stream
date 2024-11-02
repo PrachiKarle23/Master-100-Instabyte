@@ -1,0 +1,35 @@
+class MedianFinder {
+public:
+    vector<int>a;
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        a.push_back(num);
+    }
+    
+    double findMedian() {
+        int n=a.size();
+         int s=0,e=n-1;
+         double mid=0.00;
+        if(n%2==0){
+            int m1=s+(e-s)/2;
+            int m2=(s+(e-s)/2) +1;
+            mid=((double)a[m1]+double(a[m2]))/2;
+        }
+        else{
+            int m=s+(e-s)/2;
+            mid=a[m];
+        }
+        return mid;
+        
+    }
+};
+
+/**
+ * Your MedianFinder object will be instantiated and called as such:
+ * MedianFinder* obj = new MedianFinder();
+ * obj->addNum(num);
+ * double param_2 = obj->findMedian();
+ */
